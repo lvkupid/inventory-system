@@ -1,13 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.inventorysystem.model;
 
-/**
- *
- * @author shift
- */
 public class Supplier {
+    private int suId;
+    private String suName;
+    private String suPhone;
+
+    public int getSuId() {
+        return suId;
+    }
+
+    public void setSuId(int suId) {
+        this.suId = suId;
+    }
+
+    public String getSuName() {
+        return suName;
+    }
+
+    public void setSuName(String suName) {
+        this.suName = suName;
+    }
+
+    public String getSuPhone() {
+        return suPhone;
+    }
+
+    public void setSuPhone(String suPhone) {
+        this.suPhone = suPhone;
+    }
+
+    public Supplier() {
+    }
     
 }
