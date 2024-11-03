@@ -1,14 +1,34 @@
 package com.mycompany.inventorysystem.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-public class Product {
+@Entity
+public class Product implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int prodId;
+    
     private String prodName;
     private String prodDesc;
     private BigDecimal prodPrice;
     private int prodStock;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+    
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
+    
     public int getProdId() {
         return prodId;
     }
@@ -50,6 +70,14 @@ public class Product {
     }
 
     public Product() {
+    }
+
+    public Product(int prodId, String prodName, String prodDesc, BigDecimal prodPrice, int prodStock) {
+        this.prodId = prodId;
+        this.prodName = prodName;
+        this.prodDesc = prodDesc;
+        this.prodPrice = prodPrice;
+        this.prodStock = prodStock;
     }
     
     

@@ -1,10 +1,26 @@
 package com.mycompany.inventorysystem.model;
 
-public class Supplier {
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Supplier implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int suId;
+    
     private String suName;
     private String suPhone;
 
+    @OneToMany(mappedBy = "supplier")
+    private List<Product> products;
+    
     public int getSuId() {
         return suId;
     }
@@ -30,6 +46,12 @@ public class Supplier {
     }
 
     public Supplier() {
+    }
+
+    public Supplier(int suId, String suName, String suPhone) {
+        this.suId = suId;
+        this.suName = suName;
+        this.suPhone = suPhone;
     }
     
 }
