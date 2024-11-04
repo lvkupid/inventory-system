@@ -4,6 +4,8 @@
 
 package com.mycompany.inventorysystem;
 
+import com.mycompany.inventorysystem.view.MainView;
+
 /**
  *
  * @author shift
@@ -11,6 +13,8 @@ package com.mycompany.inventorysystem;
 public class InventorySystem {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        MainView view = new MainView();
+        view.setVisible(true);
+        view.setLocationRelativeTo(null);
     }
 }

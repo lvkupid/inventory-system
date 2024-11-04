@@ -39,15 +39,35 @@ public class MainView extends javax.swing.JFrame {
 
         btnAddProduct.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnAddProduct.setText("Add Product");
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProductActionPerformed(evt);
+            }
+        });
 
         btnAddCategory.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnAddCategory.setText("Add Category");
+        btnAddCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCategoryActionPerformed(evt);
+            }
+        });
 
         btnAddSupplier.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnAddSupplier.setText("Add Supplier");
+        btnAddSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSupplierActionPerformed(evt);
+            }
+        });
 
         btnListItems.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnListItems.setText("List Items");
+        btnListItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListItemsActionPerformed(evt);
+            }
+        });
 
         btnExit.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnExit.setText("Exit");
@@ -97,6 +117,28 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
+        ProductView view = new ProductView();
+        view.setVisible(true);
+        view.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnAddProductActionPerformed
+
+    private void btnAddCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCategoryActionPerformed
+        CategoryView view = new CategoryView();
+        view.setVisible(true);
+        view.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnAddCategoryActionPerformed
+
+    private void btnAddSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSupplierActionPerformed
+        SupplierView view = new SupplierView();
+        view.setVisible(true);
+        view.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnAddSupplierActionPerformed
+
+    private void btnListItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListItemsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListItemsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCategory;
@@ -108,4 +150,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelContent;
     // End of variables declaration//GEN-END:variables
+
+    
+
 }
