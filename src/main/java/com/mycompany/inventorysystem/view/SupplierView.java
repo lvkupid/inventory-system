@@ -1,7 +1,12 @@
 package com.mycompany.inventorysystem.view;
 
+import com.mycompany.inventorysystem.model.Controller;
+import javax.swing.JOptionPane;
+
 public class SupplierView extends javax.swing.JFrame {
 
+    Controller control = new Controller();
+    
     public SupplierView() {
         initComponents();
     }
@@ -39,6 +44,11 @@ public class SupplierView extends javax.swing.JFrame {
 
         btnLoad.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnLoad.setText("Load to Database");
+        btnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadActionPerformed(evt);
+            }
+        });
 
         btnClear.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnClear.setText("Clear Fields");
@@ -137,6 +147,15 @@ public class SupplierView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+        String supplierName = txtName.getText();
+        String supplierCel = txtPhone.getText();
+        
+        control.saveSupplier(supplierName, supplierCel);
+        
+        JOptionPane.showMessageDialog(null, "Saved successfully.", "Title", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnLoadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

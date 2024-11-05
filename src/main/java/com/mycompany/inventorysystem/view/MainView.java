@@ -136,7 +136,9 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddSupplierActionPerformed
 
     private void btnListItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListItemsActionPerformed
-        // TODO add your handling code here:
+        ListView view = new ListView();
+        view.setVisible(true);
+        view.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnListItemsActionPerformed
 
 

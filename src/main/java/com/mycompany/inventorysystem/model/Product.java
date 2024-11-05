@@ -33,6 +33,22 @@ public class Product implements Serializable {
         return prodId;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
     public void setProdId(int prodId) {
         this.prodId = prodId;
     }
