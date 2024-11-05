@@ -53,5 +53,10 @@ public class Supplier implements Serializable {
         this.suName = suName;
         this.suPhone = suPhone;
     }
+
+    @Override
+    public String toString() {
+        return suId + " - " + suName;
+    }
     
 }

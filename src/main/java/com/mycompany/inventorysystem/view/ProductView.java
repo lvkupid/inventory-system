@@ -18,13 +18,14 @@ public class ProductView extends javax.swing.JFrame {
     private void loadComboboxData(){
         List<Category> categoriesList = control.getAllCategories();
         for(Category cat : categoriesList){
-            cbCategory.addItem(cat.getCatName());
+            cbCategory.addItem(cat.toString());
         }
         
         List<Supplier> suppliersList = control.getAllSuppliers();
         for (Supplier sup : suppliersList) {
-            cbSupplier.addItem(sup.getSuName());
+            cbSupplier.addItem(sup.toString());
         }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -229,20 +230,23 @@ public class ProductView extends javax.swing.JFrame {
         String productName = txtName.getText();
         String productDescription = txtDescription.getText();
         double price = Double.parseDouble(txtPrice.getText());
-        int stock = Integer.parseInt(txtPrice.getText());
+        int stock = Integer.parseInt(txtStock.getText());
         
-        String category = (String) cbCategory.getSelectedItem();
-        if (category == null || category.equals("Select a Category")) {
+        int catId = cbCategory.getSelectedIndex();
+        int suppId = cbSupplier.getSelectedIndex();
+                
+        if(catId == 0){
             JOptionPane.showMessageDialog(null, "Please select a valid category.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         
-        String supplier = (String) cbSupplier.getSelectedItem();
-        if (supplier == null || supplier.equals("Select a Category")) {
-            JOptionPane.showMessageDialog(null, "Please select a valid category.", "Input Error", JOptionPane.WARNING_MESSAGE);
+        if(suppId == 0){
+            JOptionPane.showMessageDialog(null, "Please select a valid supplier.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         
-        control.saveProduct(productName, productDescription, price, stock, category, supplier);
-        
+        control.saveProduct(productName, productDescription, price, stock, catId, suppId);
+        JOptionPane.showMessageDialog(null, "Saved successfully.", "Title", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnLoadActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed

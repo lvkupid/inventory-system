@@ -44,4 +44,9 @@ public class Category implements Serializable {
         this.catName = catName;
     }
 
+    @Override
+    public String toString() {
+        return catId + " - " + catName;
+    }
+
 }

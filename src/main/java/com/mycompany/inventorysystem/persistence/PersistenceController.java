@@ -4,6 +4,7 @@ import com.mycompany.inventorysystem.model.Category;
 import com.mycompany.inventorysystem.model.Product;
 import com.mycompany.inventorysystem.model.Supplier;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 public class PersistenceController {
     
@@ -36,7 +37,27 @@ public class PersistenceController {
     public List<Supplier> getAllSuppliers() {
         return supplierJpa.findSupplierEntities();
     }
-    
-    
-    
+
+    public void saveProduct(Product prod) {
+        productJpa.create(prod);
+    }
+
+    public Category findCategoryById(int catId) {
+        EntityManager em = categoryJpa.getEntityManager();
+        try {
+            return em.find(Category.class, catId);
+        } finally {
+            em.close();
+        }
+    }
+
+    public Supplier findSupplierById(int suppId) {
+        EntityManager em = supplierJpa.getEntityManager();
+        try {
+            return em.find(Supplier.class, suppId);
+        } finally {
+            em.close();
+        }
+    }
+
 }
