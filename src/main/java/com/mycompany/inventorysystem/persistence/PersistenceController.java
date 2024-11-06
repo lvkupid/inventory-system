@@ -3,7 +3,10 @@ package com.mycompany.inventorysystem.persistence;
 import com.mycompany.inventorysystem.model.Category;
 import com.mycompany.inventorysystem.model.Product;
 import com.mycompany.inventorysystem.model.Supplier;
+import com.mycompany.inventorysystem.persistence.exceptions.NonexistentEntityException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 public class PersistenceController {
@@ -57,6 +60,27 @@ public class PersistenceController {
             return em.find(Supplier.class, suppId);
         } finally {
             em.close();
+        }
+    }
+
+    public void deleteProduct(int prodId) {
+        try {
+            productJpa.destroy(prodId);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(PersistenceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    public Product getProduct(int prodId) {
+        return productJpa.findProduct(prodId);
+    }
+
+    public void modifyProduct(Product PROD) {
+        try {
+            productJpa.edit(PROD);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenceController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

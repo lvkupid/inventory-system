@@ -1,17 +1,35 @@
 package com.mycompany.inventorysystem.view;
 
+import com.mycompany.inventorysystem.model.Category;
 import com.mycompany.inventorysystem.model.Controller;
 import com.mycompany.inventorysystem.model.Product;
+import com.mycompany.inventorysystem.model.Supplier;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ListView extends javax.swing.JFrame {
 
-    Controller control = new Controller();
+    Controller control = null;
     
     public ListView() {
         control = new Controller();
         initComponents();
+        loadComboboxData();
+    }
+    
+    private void loadComboboxData(){
+        List<Category> categoriesList = control.getAllCategories();
+        for(Category cat : categoriesList){
+            cbCategory.addItem(cat.toString());
+        }
+        
+        List<Supplier> suppliersList = control.getAllSuppliers();
+        for (Supplier sup : suppliersList) {
+            cbSupplier.addItem(sup.toString());
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -67,6 +85,11 @@ public class ListView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbProducts);
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnModify.setText("Modify");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -75,14 +98,9 @@ public class ListView extends javax.swing.JFrame {
             }
         });
 
-        cbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Category" }));
+        cbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Category" }));
 
-        cbSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Supplier", " " }));
-        cbSupplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSupplierActionPerformed(evt);
-            }
-        });
+        cbSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Supplier" }));
 
         jLabel1.setText("Stock lower than:");
 
@@ -199,12 +217,24 @@ public class ListView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-        // TODO add your handling code here:
+        if(tbProducts.getRowCount() > 0){
+            if(tbProducts.getSelectedRow() != -1){
+                int prodId = Integer.parseInt(String.valueOf(tbProducts.getValueAt(tbProducts.getSelectedRow(), 0)));
+                
+                ModifyView mod = new ModifyView(prodId);
+                mod.setVisible(true);
+                mod.setLocationRelativeTo(null);
+                
+                
+            
+            }else{
+                showMessage("No Product selected.", "Error", "Modify Error");
+            }
+            
+        }else{
+            showMessage("Nothing to Modify.", "Error", "Modify Error");
+        }
     }//GEN-LAST:event_btnModifyActionPerformed
-
-    private void cbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSupplierActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbSupplierActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         
@@ -212,7 +242,36 @@ public class ListView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowOpened
 
-    
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+        if(tbProducts.getRowCount() > 0){
+            if(tbProducts.getSelectedRow() != -1){
+                int prodId = Integer.parseInt(String.valueOf(tbProducts.getValueAt(tbProducts.getSelectedRow(), 0)));
+                control.deleteProduct(prodId);
+                showMessage("Product eliminated from db.", "Info", "Product Elimination");
+                loadTable();
+            
+            }else{
+                showMessage("No Product selected.", "Error", "Deletion Error");
+            }
+            
+        }else{
+            showMessage("Nothing to delete.", "Error", "Deletion Error");
+        }
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    public void showMessage(String msg, String type, String title){
+        JOptionPane optionPane = new JOptionPane(msg);
+        if(type.equals("Info")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }else if(type.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(title);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -241,6 +300,7 @@ public class ListView extends javax.swing.JFrame {
         //define model
         DefaultTableModel table = new DefaultTableModel(){
             
+            @Override
             public boolean isCellEditable(int row, int column){
                 return false;
             }
@@ -262,6 +322,8 @@ public class ListView extends javax.swing.JFrame {
                 table.addRow(obj);
             }
         }
+        
+        tbProducts.setModel(table);
         
     }
 }

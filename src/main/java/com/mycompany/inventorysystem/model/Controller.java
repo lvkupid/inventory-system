@@ -67,10 +67,49 @@ public class Controller {
             return;
         }
 
-        prod.setCategory(category);
-        prod.setSupplier(supplier);
+        //prod.setCategory(category);
+        //prod.setSupplier(supplier);
         
         controlPersis.saveProduct(prod);
+        
+    }
+
+    public void deleteProduct(int prodId) {
+        
+        controlPersis.deleteProduct(prodId);
+        
+    }
+
+    public Product getProduct(int prodId) {
+        
+        return controlPersis.getProduct(prodId);
+        
+    }
+
+    public void modifyProduct(Product PROD, String productName, String productDescription, double price, int stock, int catId, int suppId) {
+        PROD.setProdName(productName);
+        PROD.setProdDesc(productDescription);
+        PROD.setProdPrice(BigDecimal.valueOf(price));
+        PROD.setProdStock(stock);
+        
+        Category category = controlPersis.findCategoryById(catId);
+        if (category != null) {
+            PROD.setCategory(category);
+        } else {
+            JOptionPane.showMessageDialog(null, "Category not found. Please ensure the category ID is correct.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Buscar el proveedor existente
+        Supplier supplier = controlPersis.findSupplierById(suppId);
+        if (supplier != null) {
+            PROD.setSupplier(supplier);
+        } else {
+            JOptionPane.showMessageDialog(null, "Supplier not found. Please ensure the supplier ID is correct.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        controlPersis.modifyProduct(PROD);
         
     }
     
